@@ -1,3 +1,4 @@
+;;;
 ;;; Enable arbitrary customised local configuration, while minimising
 ;;; upstream merge conflict potential. Possibly this is not strictly
 ;;; necessary if one understands git better than I do at this point.
@@ -11,7 +12,6 @@
 (require 'ess-init)
 
 (provide 'init-local)
-
 
 ;; Local Variables:
 ;; coding: utf-8
