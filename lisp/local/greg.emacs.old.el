@@ -2,22 +2,20 @@
 ;; old .emacs file in process of being canabalised into new configura
 
 (auto-compression-mode t)
-;;(electric-pair-mode t)
-;;(global-font-lock-mode t)
 ;;(menu-bar-mode -1)
-(tool-bar-mode -1)
+
 
 ;; (when (fboundp 'scroll-bar-mode)
 ;;   (scroll-bar-mode -1))
 ;; (setq redisplay-dont-pause t) ;; speeds up display
-;; (fset 'yes-or-no-p 'y-or-n-p)
-;; (global-auto-revert-mode t)
-;; ;; (set-default 'line-spacing 0)
 
-;; (setq completion-ignored-extensions
-;;       '(".abs" ".aux" ".BAK" ".bak" ".CKP" ".class" ".elc" ".fasl" ".gz" ".hi"
-;;      ".imp" ".mx" ".nc" ".o" ".press" ".ps" ".RData" ".Rcheck" ".so" ".tgz"
-;;      ".toc" ".u" ))
+;; (defun gl/sorted-copy-set (seq)
+;;   (let ((my-seq (copy-sequence seq)))
+;;     (sort my-seq ))
+;;   )
+
+;; (add-to-list 'completion-ignored-extensions
+;;       '(".nc" ".RData" ".Rcheck/"))
 
 ;; (defadvice completion--file-name-table
 ;;     (after ignoring-backups-f-n-completion activate)
@@ -30,51 +28,6 @@
 ;;               (completion-pcm--filename-try-filter res)))))
 
 ;; (setq-default major-mode 'text-mode)
-
-;; ;; ----- package management ---------------------------------------------------
-
-;; (when (> emacs-major-version 23)
-
-;;   (defvar elpa-packages
-;;     '(
-;;       ac-js2
-;;       auto-complete
-;;       cider
-;;       clojure-mode
-;;       css-mode
-;;       ;;dash
-;;       ;;dash-at-point
-;;       ;;ensime
-;;       flycheck
-;;       js2-mode
-;;       ;;ghc
-;;       magit
-;;       org
-;;       paredit
-;;       solarized-theme
-;;       stan-mode
-;;       stan-snippets
-;;       web-mode
-;;       zenburn-theme
-;;       ))
-
-;;   (require 'package)
-
-;;   (setq package-archives
-;;      '(;; ("gnu"       . "http://elpa.gnu.org/packages/")
-;;        ;; ("marmalade" . "http://marmalade-repo.org/packages/")
-;;        ("org"   . "http://orgmode.org/elpa/")
-;;        ("melpa" . "http://melpa.milkbox.net/packages/")))
-
-;;   (package-initialize)
-
-;;   (when (not package-archive-contents)
-;;     (package-refresh-contents))
-
-;;   (mapc (lambda (p)
-;;        (unless (package-installed-p p) (package-install p)))
-;;      elpa-packages)
-;;   )
 
 
 ;; (when (string= window-system "x")
@@ -318,51 +271,6 @@
 ;; ;; (global-set-key "\M-g p" 'epa-file-disable) ;; plain
 ;; ;; (global-set-key "\M-g c" 'epa-file-enable)  ;; crypt
 
-
-;; ;; ---- ielm ------------------------------------------------------------------
-
-;; (defun ielm-auto-complete ()
-;;   "Enables `auto-complete' support in \\[ielm]."
-;;   (setq ac-sources '(ac-source-functions
-;;                      ac-source-variables
-;;                      ac-source-features
-;;                      ac-source-symbols
-;;                      ac-source-words-in-same-mode-buffers))
-;;   (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
-;;   (auto-complete-mode 1))
-
-;; (add-hook 'ielm-mode-hook 'ielm-auto-complete)
-;; (add-hook 'ielm-mode-hook (lambda () (paredit-mode +1)))
-
-;; ;; (defadvice ielm-eval-input (after ielm-paredit activate)
-;; ;;   "Begin each IELM prompt with a ParEdit parenthesis pair."
-;; ;;   (paredit-open-round))
-;; ;; this is almost good, but needs one-key cancel
-
-;; ;; ---- paredit ---------------------------------------------------------------
-
-;; (autoload 'paredit-mode "paredit"
-;;      "Minor mode for pseudo-structurally editing Lisp code." t)
-;; (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
-;; (add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
-;; (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
-;; (add-hook 'clojure-mode-hook          (lambda () (paredit-mode +1)))
-
-
-;; (defun my-paredit-nonlisp ()
-;;   "Turn on paredit mode for non-lisps."
-;;   (interactive)
-;;   (set (make-local-variable 'paredit-space-for-delimiter-predicates)
-;;        '((lambda (endp delimiter) nil)))
-;;   (paredit-mode 1))
-
-;; ;; perhaps consider autopair instead?
-;; (add-hook 'R-mode-hook 'my-paredit-nonlisp)
-;; (add-hook 'ess-mode-hook 'my-paredit-nonlisp)
-;; (add-hook 'iess-mode-hook 'my-paredit-nonlisp)
-;; (add-hook 'js-mode-hook 'my-paredit-nonlisp)
-
-
 ;; ;; ----- NCL ------------------------------------------------------------------
 ;; ;;
 ;; ;; Fork of the official (NCAR) ncl.el by YYR, available here:
@@ -371,11 +279,6 @@
 ;; ;; See ~/opt/site-lisp/ncl-mode/README.org for details.
 ;; ;; (load "~/local/lib/elisp/ncl-mode/ncl-mode-load.el")
 
-;; ;; ---- python-----------------------------------------------------------------
-
-;; ;; (load-file "python-init.el")
-
-
 ;; ;; ----- fortran --------------------------------------------------------------
 
 ;; ;; defaults: fortran-mode: *.f,*.F,*.for; f90-mode: *.f90,*.f95,*.f03,*.f08
@@ -383,45 +286,6 @@
 ;; (add-to-list 'auto-mode-alist '("\\.FOR\\'" . fortran-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.F90\\'" . f90-mode))
 
-;; (autoload 'fortpy "fortpy" "Fortran Autocompletion" t)
-
-;; ;; todo: need mode-hook here?
-
-;; ----- ess ------------------------------------------------------------------
-
-;; (load-library "ess-init")
-
-
-;; ;; ----- ido: interactively do things -----------------------------------------
-
-;; (when (> emacs-major-version 21)       ;; GNU Emacs since v22
-;;   (ido-mode t)
-;;   ;; (ido-mode 'both)                     ;; buffers and files
-;;   (setq
-;;    ido-everywhere t
-;;    ido-case-fold  t                    ;; case-insensitive
-;;    ido-confirm-unique-completion nil   ;; wait on RET, even unique completion
-;;    ido-create-new-buffer 'always
-;;    ido-enable-flex-matching t          ;; don't try to be too smart
-;;    ido-enable-last-directory-history t ;; remember last used dirs
-;;    ido-enable-prefix nil
-;;    ido-ignore-extensions t             ;; use completion-ignored-extensions
-;;    ido-file-extensions-order
-;;    '("\\*eshell\\*" ".emacs" ".R" ".clj") ;; this idea probably sucks
-;;    ido-ignore-buffers
-;;    '("\\` " ".*Completion" "^session\.*" "^\\*[^(e?shell|R)]")
-;;    ido-max-prospects 8                 ;; don't spam minibuffer
-;;    ido-max-work-directory-list 30      ;; should be enough
-;;    ido-max-work-file-list      50      ;; remember many
-;;    ido-save-directory-list-file "~/.emacs.d/ido.last"
-;;    ido-use-filename-at-point 'guess    ;; (can be annoying)
-;;    ido-use-url-at-point nil            ;; (can be annoying)
-;;    ido-work-directory-list '("~/src")
-;;    ido-work-directory-list-ignore-regexps '("\\.Rcheck$")
-;;    ido-auto-merge-delay-time 1.2       ;; default 0.7
-;;    )
-;;   (setq confirm-nonexistent-file-or-buffer nil)
-;;   )
 
 ;; ;; ----- tramp ----------------------------------------------------------------
 
@@ -497,33 +361,5 @@
 ;; ;;     )
 ;; ;;   )
 ;; ;; (global-set-key (kbd "M-#") 'double-hashes)
-
-
-;; ;; ----- Custom Variables -----------------------------------------------------
-
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(blink-cursor-mode nil)
-;;  '(column-number-mode t)
-;;  '(cursor-type (quote (bar . 1)) t)
-;;  '(global-hl-line-mode t)
-;;  '(send-mail-function nil)
-;;  '(show-paren-mode t)
-;;  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
-;; )
-
-
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  )
-
-;; (provide 'greg.emacs.old)
-
 
 ;; ----- eof ------------------------------------------------------------------
