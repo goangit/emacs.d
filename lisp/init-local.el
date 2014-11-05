@@ -9,7 +9,7 @@
 
 (require-package 'ess)
 
-(require 'ess-init)
+(require 'init-local-ess)
 
 (provide 'init-local)
 
