@@ -10,4 +10,6 @@
 
 (add-to-list 'load-path user-local-lisp-directory)
 
+(require 'init-local-util)
+
 (provide 'init-preload-local)
