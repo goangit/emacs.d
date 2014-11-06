@@ -34,6 +34,8 @@
 (setq ess-local-process-name "R")
 (setq ess-plain-first-buffername nil)
 
+(gl/add-completion-ignored-extensions '(".RData" ".Rcheck/"))
+
 (defun my-ess-eval ()
   ;; sensible context-aware evaluation
   (interactive)
