@@ -10,6 +10,7 @@
 (require-package 'ess)
 
 (require 'init-local-ess)
+(require 'init-local-misc)
 
 (provide 'init-local)
 
