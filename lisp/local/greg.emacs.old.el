@@ -4,7 +4,6 @@
 (auto-compression-mode t)
 ;;(menu-bar-mode -1)
 
-
 ;; (when (fboundp 'scroll-bar-mode)
 ;;   (scroll-bar-mode -1))
 ;; (setq redisplay-dont-pause t) ;; speeds up display
@@ -13,9 +12,6 @@
 ;;   (let ((my-seq (copy-sequence seq)))
 ;;     (sort my-seq ))
 ;;   )
-
-;; (add-to-list 'completion-ignored-extensions
-;;       '(".nc" ".RData" ".Rcheck/"))
 
 ;; (defadvice completion--file-name-table
 ;;     (after ignoring-backups-f-n-completion activate)
