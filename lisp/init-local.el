@@ -11,6 +11,7 @@
 
 (require 'init-local-ess)
 (require 'init-local-misc)
+(require 'init-local-python)
 
 (provide 'init-local)
 
