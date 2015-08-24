@@ -3,8 +3,6 @@
 
 ;; Completion
 
-(add-to-list 'completion-ignored-extensions ".hi")
-
 ;; Hook auto-complete into the completions provided by the inferior
 ;; haskell process, if any.
 
@@ -19,6 +17,10 @@
 (after-load 'auto-complete
   (add-to-list 'ac-modes 'haskell-interactive-mode)
   (add-hook 'haskell-interactive-mode-hook 'set-auto-complete-as-completion-at-point-function))
+
+(when (executable-find "ghci-ng")
+  (setq-default haskell-process-args-cabal-repl
+                '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng")))
 
 
 
@@ -39,13 +41,6 @@
       (flycheck-mode -1)
       (flycheck-mode))
 
-    (defadvice haskell-mode-stylish-buffer (around skip-if-flycheck-errors activate)
-      "Don't run stylish-buffer if the buffer appears to have a syntax error.
-This isn't a hard guarantee, since flycheck might sometimes not run until the file has
-been saved."
-      (unless (flycheck-has-current-errors-p 'error)
-        ad-do-it))
-
     (require 'flycheck-hdevtools)))
 
 
@@ -53,7 +48,8 @@ been saved."
 
 (dolist (hook '(haskell-mode-hook inferior-haskell-mode-hook haskell-interactive-mode-hook))
   (add-hook hook 'turn-on-haskell-doc-mode)
-  (add-hook hook (lambda () (subword-mode +1))))
+  (add-hook hook (lambda () (subword-mode +1)))
+  (add-hook hook (lambda () (eldoc-mode 1))))
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 
 (add-hook 'haskell-interactive-mode-hook 'sanityinc/no-trailing-whitespace)
@@ -61,7 +57,7 @@ been saved."
 
 ;; Interaction
 
-(after-load 'haskell-process
+(after-load 'haskell
   (diminish 'interactive-haskell-mode " IntHS"))
 
 (add-auto-mode 'haskell-mode "\\.ghci\\'")
@@ -72,8 +68,7 @@ been saved."
 
 
 ;; Indentation
-(require-package 'hi2)
-(add-hook 'haskell-mode-hook 'turn-on-hi2)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 
 
@@ -101,6 +96,13 @@ been saved."
     (add-to-list
      'compilation-error-regexp-alist alias)))
 
+
+;; Stop haskell-mode's compiler note navigation from clobbering highlight-symbol-nav-mode
+(after-load 'haskell
+  (define-key interactive-haskell-mode-map (kbd "M-n") nil)
+  (define-key interactive-haskell-mode-map (kbd "M-p") nil)
+  (define-key interactive-haskell-mode-map (kbd "M-N") 'haskell-goto-next-error)
+  (define-key interactive-haskell-mode-map (kbd "M-P") 'haskell-goto-prev-error))
 
 
 (provide 'init-haskell)
