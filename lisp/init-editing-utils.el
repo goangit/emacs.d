@@ -23,11 +23,9 @@
  save-interprogram-paste-before-kill t
  scroll-preserve-screen-position 'always
  set-mark-command-repeat-pop t
- show-trailing-whitespace t
  tooltip-delay 1.5
  truncate-lines nil
- truncate-partial-width-windows nil
- visible-bell t)
+ truncate-partial-width-windows nil)
 
 (global-auto-revert-mode)
 (setq global-auto-revert-non-file-buffers t
@@ -35,29 +33,6 @@
 
 (transient-mark-mode t)
 
-
-;;; Whitespace
-
-(defun sanityinc/no-trailing-whitespace ()
-  "Turn off display of trailing whitespace in this buffer."
-  (setq show-trailing-whitespace nil))
-
-;; But don't show trailing whitespace in SQLi, inf-ruby etc.
-(dolist (hook '(special-mode-hook
-                Info-mode-hook
-                eww-mode-hook
-                term-mode-hook
-                comint-mode-hook
-                compilation-mode-hook
-                twittering-mode-hook
-                minibuffer-setup-hook))
-  (add-hook hook #'sanityinc/no-trailing-whitespace))
-
-
-(require-package 'whitespace-cleanup-mode)
-(global-whitespace-cleanup-mode t)
-
-(global-set-key [remap just-one-space] 'cycle-spacing)
 
 
 ;;; Newline behaviour
@@ -77,6 +52,15 @@
   ;; https://github.com/purcell/emacs.d/issues/138
   (after-load 'subword
     (diminish 'subword-mode)))
+
+
+
+(when (maybe-require-package 'indent-guide)
+  (add-hook 'prog-mode-hook 'indent-guide-mode)
+  (after-load 'indent-guide
+    (diminish 'indent-guide-mode))
+  (add-hook 'sanityinc/lispy-modes-hook
+            (lambda () (indent-guide-mode -1))))
 
 
 
@@ -114,6 +98,7 @@
 (setq browse-kill-ring-separator "\f")
 (global-set-key (kbd "M-Y") 'browse-kill-ring)
 (after-load 'browse-kill-ring
+  (define-key browse-kill-ring-mode-map (kbd "C-g") 'browse-kill-ring-quit)
   (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
   (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
 (after-load 'page-break-lines
@@ -155,9 +140,6 @@
 ;;----------------------------------------------------------------------------
 ;; Handy key bindings
 ;;----------------------------------------------------------------------------
-;; To be able to M-x without meta
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
-
 ;; Vimmy alternatives to M-^ and C-u M-^
 (global-set-key (kbd "C-c j") 'join-line)
 (global-set-key (kbd "C-c J") (lambda () (interactive) (join-line 1)))
@@ -204,44 +186,6 @@
 (require-package 'page-break-lines)
 (global-page-break-lines-mode)
 (diminish 'page-break-lines-mode)
-
-;;----------------------------------------------------------------------------
-;; Fill column indicator
-;;----------------------------------------------------------------------------
-(when (eval-when-compile (> emacs-major-version 23))
-  (require-package 'fill-column-indicator)
-  (defun sanityinc/prog-mode-fci-settings ()
-    (turn-on-fci-mode)
-    (when show-trailing-whitespace
-      (set (make-local-variable 'whitespace-style) '(face trailing))
-      (whitespace-mode 1)))
-
-  ;;(add-hook 'prog-mode-hook 'sanityinc/prog-mode-fci-settings)
-
-  (defun sanityinc/fci-enabled-p ()
-    (and (boundp 'fci-mode) fci-mode))
-
-  (defvar sanityinc/fci-mode-suppressed nil)
-  (defadvice popup-create (before suppress-fci-mode activate)
-    "Suspend fci-mode while popups are visible"
-    (let ((fci-enabled (sanityinc/fci-enabled-p)))
-      (when fci-enabled
-        (set (make-local-variable 'sanityinc/fci-mode-suppressed) fci-enabled)
-        (turn-off-fci-mode))))
-  (defadvice popup-delete (after restore-fci-mode activate)
-    "Restore fci-mode when all popups have closed"
-    (when (and sanityinc/fci-mode-suppressed
-               (null popup-instances))
-      (setq sanityinc/fci-mode-suppressed nil)
-      (turn-on-fci-mode)))
-
-  ;; Regenerate fci-mode line images after switching themes
-  (defadvice enable-theme (after recompute-fci-face activate)
-    (dolist (buffer (buffer-list))
-      (with-current-buffer buffer
-        (when (sanityinc/fci-enabled-p)
-          (turn-on-fci-mode))))))
-
 
 ;;----------------------------------------------------------------------------
 ;; Shift lines up and down with M-up and M-down. When paredit is enabled,
