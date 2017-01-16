@@ -2,18 +2,19 @@
   (require-package 'org))
 (require-package 'org-fstree)
 (when *is-a-mac*
-  (require-package 'org-mac-link)
-  (autoload 'org-mac-grab-link "org-mac-link" nil t)
+  (maybe-require-package 'grab-mac-link)
   (require-package 'org-mac-iCal))
+
+(maybe-require-package 'org-cliplink)
 
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
 
 ;; Various preferences
 (setq org-log-done t
-      org-completion-use-ido t
       org-edit-timestamp-down-means-later t
       org-archive-mark-done nil
+      org-hide-emphasis-markers t
       org-catch-invisible-edits 'show
       org-export-coding-system 'utf-8
       org-fast-tag-selection-single-key 'expert
@@ -40,7 +41,8 @@
         (delete-file zip-temp)))))
 
 (after-load 'ob-ditaa
-  (unless (file-exists-p org-ditaa-jar-path)
+  (unless (and (boundp 'org-ditaa-jar-path)
+               (file-exists-p org-ditaa-jar-path))
     (let ((jar-name "ditaa0_9.jar")
           (url "http://jaist.dl.sourceforge.net/project/ditaa/ditaa/0.9/ditaa0_9.zip"))
       (setq org-ditaa-jar-path (expand-file-name jar-name (file-name-directory user-init-file)))
@@ -114,10 +116,16 @@ typical word processor."
 (setq org-refile-target-verify-function 'sanityinc/verify-refile-target)
 
 (defun sanityinc/org-refile-anywhere (&optional goto default-buffer rfloc msg)
-  "A version of `org-refile' which suppresses `org-refile-target-verify-function'."
+  "A version of `org-refile' which allows refiling to any subtree."
   (interactive "P")
   (let ((org-refile-target-verify-function))
     (org-refile goto default-buffer rfloc msg)))
+
+(defun sanityinc/org-agenda-refile-anywhere (&optional goto rfloc no-update)
+  "A version of `org-agenda-refile' which allows refiling to any subtree."
+  (interactive "P")
+  (let ((org-refile-target-verify-function))
+    (org-agenda-refile goto rfloc no-update)))
 
 ;; Targets start with the file name - allows creating level 1 tasks
 ;;(setq org-refile-use-outline-path (quote file))

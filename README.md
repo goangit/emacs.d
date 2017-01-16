@@ -24,9 +24,10 @@ config adds improved defaults and extended support for the following:
 * Common Lisp (with Slime)
 
 In particular, there's a nice config for *autocompletion* with
-`company`, and `flycheck` is used to immediately highlight syntax
-errors in Ruby, HAML, Python, Javascript, PHP and a number of other
-languages.
+[company](https://company-mode.github.io/), and
+[flycheck](http://www.flycheck.org) is used to immediately highlight
+syntax errors in Ruby, Python, Javascript, Haskell and a number of
+other languages.
 
 ## Supported Emacs versions
 
@@ -79,6 +80,11 @@ the third-party packages regularly too:
 
 <kbd>M-x package-list-packages</kbd>, then <kbd>U</kbd> followed by <kbd>x</kbd>.
 
+You should usually restart Emacs after pulling changes or updating
+packages so that they can take effect. Emacs should usually restore
+your working buffers when you restart due to this configuration's use
+of the `desktop` and `session` packages.
+
 ## Adding your own customization
 
 To add your own customization, use <kbd>M-x customize</kbd> and/or
@@ -95,6 +101,11 @@ you can also create an `~/.emacs.d/lisp/init-preload-local.el` file.
 
 If you plan to customize things more extensively, you should probably
 just fork the repo and hack away at the config to make it your own!
+Remember to regularly merge in changes from this repo, so that your
+config remains compatible with the latest package and Emacs versions.
+
+*Please note that I cannot provide support for customised versions of
+this configuration.*
 
 ## Similar configs
 
