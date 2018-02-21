@@ -15,16 +15,17 @@
 ;;;
 ;;; Code:
 
-
 (require-package 'ess)
-(require-package 'jabber)
-(require-package 'julia-mode)
+;;(require-package 'flycheck-kotlin)
+;;(require-package 'jabber)
+;;(require-package 'julia-mode)
+;;(require-package 'kotlin-mode)
 
 (require 'init-local-ess)
 (require 'init-local-misc)
 (require 'init-local-python)
 
-;; (require 'init-local-org)
+(require 'init-local-org)
 
 ;; Local Variables:
 ;; coding: utf-8

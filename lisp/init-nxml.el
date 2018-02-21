@@ -35,8 +35,17 @@ indentation rules."
 ;;----------------------------------------------------------------------------
 ;; Integration with tidy for html + xml
 ;;----------------------------------------------------------------------------
-(require-package 'tidy)
-(add-hook 'nxml-mode-hook (lambda () (tidy-build-menu nxml-mode-map)))
+;; Read about tidy here: https://www.w3.org/People/Raggett/tidy/
+
+;; Requires prerequisites for tidy (at time of writing):
+;; > sudo apt install cmake xlstproc
+;;
+;; Requires tidy to be installed (for emacs package to integrate)
+;; See latest versions at: http://binaries.html-tidy.org/
+
+;; 20180220: annot find package tidy
+;; (require-package 'tidy)
+;; (add-hook 'nxml-mode-hook (lambda () (tidy-build-menu nxml-mode-map)))
 
 (defun sanityinc/tidy-buffer-xml (beg end)
   "Run \"tidy -xml\" on the region from BEG to END, or whole buffer."

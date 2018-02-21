@@ -1,23 +1,23 @@
 ;;; Package --- Summary
 ;;;
-;;; Ongoing attempt to tame Org-Mode to provide daily work planning.
+;;; Configure Org-Mode for daily work planning.
 ;;;
 ;;;
 ;;; Commentary:
 ;;;
 ;;; configuration below adapted from http://doc.norang.ca/org-mode.html
 ;;;
-;;; This file is symlinked from ~/.emacs.d/lisp/local/init-local-org.el
 ;;;
 ;;; Todo: pare down to minimal set of genuine useful functionality.
 ;;;
 ;;; Greg Lee 2015-09-09.
 ;;;
+;;; Revised: 2018-01-26.
 ;;;
 ;;; Code:
 
 
-(setq org-startup-indented t) ;; indent mode = minimum stars
+(setq org-startup-indented t)   ;; indent mode = minimum stars
 (setq org-log-done 'time)	;; add timestamps to completed items
 (setq org-log-done 'note)	;; and notes as well
 
@@ -31,7 +31,7 @@
 
 ;; ----- Agenda Files ---------------------------------------------------------
 
-(setq org-agenda-files '("~/src/org" "~/src/ors/org" "~/src/sys/org"))
+(setq org-agenda-files '("~/src/org" "~/src/med/anums"))
 
 (defun gl/org-agenda-symlinks ()
   "list fqfn targets of *.org symlinks from org-agenda-files directories"
@@ -99,42 +99,42 @@
 
 ;; Custom Key Bindings
 
-(global-set-key (kbd "<f12>") 'org-agenda)
-(global-set-key (kbd "<f5>") 'bh/org-todo)
-(global-set-key (kbd "<S-f5>") 'bh/widen)
-(global-set-key (kbd "<f7>") 'bh/set-truncate-lines)
-(global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
+(global-set-key (kbd "<f12>")     'org-agenda)
+(global-set-key (kbd "<f5>")      'bh/org-todo)
+(global-set-key (kbd "<S-f5>")    'bh/widen)
+(global-set-key (kbd "<f7>")      'bh/set-truncate-lines)
+(global-set-key (kbd "<f8>")      'org-cycle-agenda-files)
 (global-set-key (kbd "<f9> <f9>") 'bh/show-org-agenda)
-(global-set-key (kbd "<f9> b") 'bbdb)
-(global-set-key (kbd "<f9> c") 'calendar)
-(global-set-key (kbd "<f9> f") 'boxquote-insert-file)
-(global-set-key (kbd "<f9> g") 'gnus)
-(global-set-key (kbd "<f9> h") 'bh/hide-other)
-(global-set-key (kbd "<f9> n") 'bh/toggle-next-task-display)
-(global-set-key (kbd "<f9> w") 'widen)
+(global-set-key (kbd "<f9> b")    'bbdb)
+(global-set-key (kbd "<f9> c")    'calendar)
+(global-set-key (kbd "<f9> f")    'boxquote-insert-file)
+(global-set-key (kbd "<f9> g")    'gnus)
+(global-set-key (kbd "<f9> h")    'bh/hide-other)
+(global-set-key (kbd "<f9> n")    'bh/toggle-next-task-display)
+(global-set-key (kbd "<f9> w")    'widen)
 
-(global-set-key (kbd "<f9> I") 'bh/punch-in)
-(global-set-key (kbd "<f9> O") 'bh/punch-out)
+(global-set-key (kbd "<f9> I")    'bh/punch-in)
+(global-set-key (kbd "<f9> O")    'bh/punch-out)
 
-(global-set-key (kbd "<f9> o") 'bh/make-org-scratch)
+(global-set-key (kbd "<f9> o")    'bh/make-org-scratch)
 
-(global-set-key (kbd "<f9> r") 'boxquote-region)
-(global-set-key (kbd "<f9> s") 'bh/switch-to-scratch)
+(global-set-key (kbd "<f9> r")    'boxquote-region)
+(global-set-key (kbd "<f9> s")    'bh/switch-to-scratch)
 
-(global-set-key (kbd "<f9> t") 'bh/insert-inactive-timestamp)
-(global-set-key (kbd "<f9> T") 'bh/toggle-insert-inactive-timestamp)
+(global-set-key (kbd "<f9> t")    'bh/insert-inactive-timestamp)
+(global-set-key (kbd "<f9> T")    'bh/toggle-insert-inactive-timestamp)
 
-(global-set-key (kbd "<f9> v") 'visible-mode)
-(global-set-key (kbd "<f9> l") 'org-toggle-link-display)
-(global-set-key (kbd "<f9> SPC") 'bh/clock-in-last-task)
-(global-set-key (kbd "C-<f9>") 'previous-buffer)
-(global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
-(global-set-key (kbd "C-x n r") 'narrow-to-region)
-(global-set-key (kbd "C-<f10>") 'next-buffer)
-(global-set-key (kbd "<f11>") 'org-clock-goto)
-(global-set-key (kbd "C-<f11>") 'org-clock-in)
+(global-set-key (kbd "<f9> v")    'visible-mode)
+(global-set-key (kbd "<f9> l")    'org-toggle-link-display)
+(global-set-key (kbd "<f9> SPC")  'bh/clock-in-last-task)
+(global-set-key (kbd "C-<f9>")    'previous-buffer)
+(global-set-key (kbd "M-<f9>")    'org-toggle-inline-images)
+(global-set-key (kbd "C-x n r")   'narrow-to-region)
+(global-set-key (kbd "C-<f10>")   'next-buffer)
+(global-set-key (kbd "<f11>")     'org-clock-goto)
+(global-set-key (kbd "C-<f11>")   'org-clock-in)
 (global-set-key (kbd "C-s-<f12>") 'bh/save-then-publish)
-(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c c")     'org-capture)
 
 (defun bh/hide-other ()
   (interactive)
@@ -176,14 +176,14 @@
                         "CANC(c@/!)" "PHONE" "MEETING"))))
 
 (setq org-todo-keyword-faces
-      (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "light blue" :weight bold)
-              ("DONE" :foreground "forest green" :weight bold)
-              ("WAIT" :foreground "orange" :weight bold)
-              ("HOLD" :foreground "magenta" :weight bold)
-              ("CANC" :foreground "forest green" :weight bold)
+      (quote (("TODO"    :foreground "red" :weight bold)
+              ("NEXT"    :foreground "light blue" :weight bold)
+              ("DONE"    :foreground "forest green" :weight bold)
+              ("WAIT"    :foreground "orange" :weight bold)
+              ("HOLD"    :foreground "magenta" :weight bold)
+              ("CANC"    :foreground "forest green" :weight bold)
               ("MEETING" :foreground "forest green" :weight bold)
-              ("PHONE" :foreground "forest green" :weight bold))))
+              ("PHONE"   :foreground "forest green" :weight bold))))
 
 (setq org-todo-state-tags-triggers
       (quote (("CANC" ("CANC" . t))
