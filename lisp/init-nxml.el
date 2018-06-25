@@ -41,8 +41,10 @@ indentation rules."
 ;;
 ;; Requires tidy to be installed (for emacs package to integrate)
 ;; See latest versions at: http://binaries.html-tidy.org/
-
-;; 20180220: annot find package tidy
+;;
+;; sudo apt install tidy
+;;
+;; 20180220: cannot find package tidy
 ;; (require-package 'tidy)
 ;; (add-hook 'nxml-mode-hook (lambda () (tidy-build-menu nxml-mode-map)))
 

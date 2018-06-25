@@ -15,16 +15,22 @@
 ;;;
 ;;; Code:
 
-(require-package 'ess)
-;;(require-package 'flycheck-kotlin)
+(add-to-list 'package-archives
+	     (cons "melpa-stable" "http://stable.melpa.org/packages/") t)
+
+(add-to-list 'package-pinned-packages
+             '("ensime" . "melpa-stable"))
+
+;;(require-package 'ess)
+(require-package 'ensime)
+
 ;;(require-package 'jabber)
 ;;(require-package 'julia-mode)
-;;(require-package 'kotlin-mode)
 
 (require 'init-local-ess)
+;; (require 'init-local-ensime)
 (require 'init-local-misc)
 (require 'init-local-python)
-
 (require 'init-local-org)
 
 ;; Local Variables:

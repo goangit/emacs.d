@@ -10,8 +10,9 @@
 
 ;;; Install into separate package dirs for each Emacs version, to prevent bytecode incompatibility
 (let ((versioned-package-dir
-       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version)
-                         user-emacs-directory)))
+       (expand-file-name
+        (format "elpa-%s.%s" emacs-major-version emacs-minor-version)
+        user-emacs-directory)))
   (setq package-user-dir versioned-package-dir))
 
 ;;; Standard package repositories
@@ -25,7 +26,8 @@
   ;;  (cons "melpa-mirror" (concat proto "://www.mirrorservice.org/sites/melpa.org/packages/")) t)
   (if (< emacs-major-version 24)
       ;; For important compatibility libraries like cl-lib
-      (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))
+      (add-to-list 'package-archives
+                   '("gnu" . (concat proto "://elpa.gnu.org/packages/")))
     (unless no-ssl
       ;; Force SSL for GNU ELPA
       (setcdr (assoc "gnu" package-archives) "https://elpa.gnu.org/packages/"))))
