@@ -10,7 +10,7 @@
 ;;; better than I do at this point.
 ;;;
 ;;; See init-preload-local.el for pre-loaded local customisations,
-;;; which include specification of user's local lisp directory.
+;;; which include specification of user's local Lisp directory.
 ;;;
 ;;;
 ;;; Code:
@@ -21,14 +21,14 @@
 (add-to-list 'package-pinned-packages
              '("ensime" . "melpa-stable"))
 
-;;(require-package 'ess)
 (require-package 'ensime)
-
+(use-package ess :init (require 'ess-site))
+;;(require-package 'ess) ;; older, probably deprecated
 ;;(require-package 'jabber)
 ;;(require-package 'julia-mode)
 
+(require 'init-local-ensime)
 (require 'init-local-ess)
-;; (require 'init-local-ensime)
 (require 'init-local-misc)
 (require 'init-local-python)
 (require 'init-local-org)

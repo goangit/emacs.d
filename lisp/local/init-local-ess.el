@@ -2,16 +2,18 @@
 ;; loads ess, the following autoloads will be redundant. When possible
 ;; prefer Melpa version of ESS. Alt: start emacs with --no-site-file
 
-(autoload 'R "ess-site" "ESS" t)
-(autoload 'R-mode "ess-site" "ESS" t)
-(autoload 'r-mode "ess-site" "ESS" t)
-(autoload 'Rd-mode "ess-site" "ESS" t)
-(autoload 'noweb-mode "ess-site" "ESS" t)
+;; (autoload 'R "ess-site" "ESS" t)
+;; (autoload 'R-mode "ess-site" "ESS" t)
+;; (autoload 'r-mode "ess-site" "ESS" t)
+;; (autoload 'Rd-mode "ess-site" "ESS" t)
+;; (autoload 'Rnw-mode "ess-site" "ESS" t)
+;; ;;(autoload 'ess-noweb-mode "ess-site" "ESS" t)
 
-(add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
-(add-to-list 'auto-mode-alist '("\\.r$" . R-mode))
-(add-to-list 'auto-mode-alist '("\\.Rd$" . Rd-mode))
-(add-to-list 'auto-mode-alist '("\\.Rnw$" . noweb-mode))
+;; (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
+;; (add-to-list 'auto-mode-alist '("\\.r$" . R-mode))
+;; (add-to-list 'auto-mode-alist '("\\.Rd$" . Rd-mode))
+;; ;;(add-to-list 'auto-mode-alist '("\\.Rnw$" . ess-noweb-mode))
+;; (add-to-list 'auto-mode-alist '("\\.Rnw$" . Rnw-mode))
 
 (autoload 'ess-rdired "ess-rdired"
   "View *R* objects in a dired-like buffer." t)
@@ -21,7 +23,7 @@
 ;;(require 'ess-bugs-d)
 ;;(require 'ess-jags-d)
 
-(require 'ess-eldoc "ess-eldoc" t)
+;; (require 'ess-eldoc "ess-eldoc" t)
 ;; (require 'ess-tracebug "ess-tracebug" t)
 ;; (add-hook 'ess-post-run-hook 'ess-tracebug t)
 
@@ -34,28 +36,28 @@
 (setq ess-local-process-name "R")
 (setq ess-plain-first-buffername nil)
 
-(gl/add-completion-ignored-extensions '(".RData" ".Rcheck/"))
+;; (gl/add-completion-ignored-extensions '(".RData" ".Rcheck/"))
 
-(defun my-ess-eval ()
-  ;; sensible context-aware evaluation
-  (interactive)
-  (my-ess-start-R)
-  (if (and transient-mark-mode mark-active)
-      (call-interactively 'ess-eval-region)
-    (call-interactively 'ess-eval-line-and-step)))
+;; (defun my-ess-eval ()
+;;   ;; sensible context-aware evaluation
+;;   (interactive)
+;;   (my-ess-start-R)
+;;   (if (and transient-mark-mode mark-active)
+;;       (call-interactively 'ess-eval-region)
+;;     (call-interactively 'ess-eval-line-and-step)))
 
-(add-hook 'ess-mode-hook
-          '(lambda()
-             (local-set-key [(shift return)] 'my-ess-eval)))
+;; (add-hook 'ess-mode-hook
+;;           '(lambda()
+;;              (local-set-key [(shift return)] 'my-ess-eval)))
 
-;; (add-hook 'inferior-ess-mode-hook
-;;           '(lambda() ;; perhaps these work by default?
-;;              (local-set-key [M-{] 'comint-previous-input)
-;;              (local-set-key [M-}] 'comint-next-input)))
+;; ;; (add-hook 'inferior-ess-mode-hook
+;; ;;           '(lambda() ;; perhaps these work by default?
+;; ;;              (local-set-key [M-{] 'comint-previous-input)
+;; ;;              (local-set-key [M-}] 'comint-next-input)))
 
-(add-hook 'Rnw-mode-hook
-          '(lambda()
-             (local-set-key [(shift return)] 'my-ess-eval)))
+;; (add-hook 'Rnw-mode-hook
+;;           '(lambda()
+;;              (local-set-key [(shift return)] 'my-ess-eval)))
 
 
 ;; ----- options to be considered ---------------------------------------------
