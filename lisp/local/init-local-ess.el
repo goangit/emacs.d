@@ -2,6 +2,11 @@
 ;; loads ess, the following autoloads will be redundant. When possible
 ;; prefer Melpa version of ESS. Alt: start emacs with --no-site-file
 
+(use-package ess
+  :pin melpa-stable
+  :ensure t
+  :init (require 'ess-site))
+
 (setq ess-plain-first-buffername nil)
 (setq ess-local-process-name "R")
 (setq ess-ask-for-ess-directory nil)

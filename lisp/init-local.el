@@ -15,57 +15,16 @@
 ;;;
 ;;; Code:
 
-(add-to-list 'package-archives
-	     (cons "melpa-stable" "http://stable.melpa.org/packages/") t)
-
-(add-to-list 'package-pinned-packages
-             '("use-package" . "melpa-stable"))
-
-
-;; Bootstrap `use-package' (package.el pre-initialised: init-elpa.el)
-;; see also: https://github.com/jwiegley/use-package/issues/219
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile 
-  ;; (add-to-list 'load-path "<path where use-package is installed>")
-  (require 'use-package)) ;; https://github.com/jwiegley/use-package
-
-(use-package poly-markdown
-  :pin melpa-stable
-  :ensure t)
-
-(use-package poly-org
-  :pin melpa-stable
-  :ensure t)
-
-(use-package poly-noweb
-  :pin melpa-stable
-  :ensure t)
-
-(use-package poly-R
-  :pin melpa-stable
-  :ensure t)
-
-(use-package ess
-  :pin melpa-stable
-  :ensure t
-  :init (require 'ess-site))
-
-(use-package ensime
-  :pin melpa-stable
-  :ensure t)
-
-
-;; (require 'init-local-ensime)
+(require 'init-local-packages)
+(require 'init-local-polymode)
 (require 'init-local-ess)
-;;(require-package 'jabber)
-;;(require-package 'julia-mode)
-(require 'init-local-misc)
 (require 'init-local-python)
 (require 'init-local-org)
+
+;; (require 'init-local-ensime)
+;; (require-package 'jabber)
+;; (require-package 'julia-mode)
+;; (require 'init-local-misc)
 
 ;; Local Variables:
 ;; coding: utf-8
