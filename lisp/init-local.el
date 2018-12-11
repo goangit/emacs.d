@@ -15,6 +15,8 @@
 ;;;
 ;;; Code:
 
+(global-linum-mode t)              ;; enable line numbers globally
+
 (require 'init-local-packages)
 (require 'init-local-polymode)
 (require 'init-local-ess)
@@ -22,9 +24,6 @@
 (require 'init-local-org)
 
 ;; (require 'init-local-ensime)
-;; (require-package 'jabber)
-;; (require-package 'julia-mode)
-;; (require 'init-local-misc)
 
 ;; Local Variables:
 ;; coding: utf-8
