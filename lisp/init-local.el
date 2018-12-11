@@ -64,9 +64,8 @@
 ;;(require-package 'jabber)
 ;;(require-package 'julia-mode)
 (require 'init-local-misc)
-;;(require 'init-local-python)
+(require 'init-local-python)
 (require 'init-local-org)
-
 
 ;; Local Variables:
 ;; coding: utf-8

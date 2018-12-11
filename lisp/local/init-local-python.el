@@ -1,15 +1,22 @@
-(require 'python) ;; redundant, included for completeness
+;;; Package --- Summary
+;;;
+;;;
+;;; Commentary:
+;;;
+;;;
+;;; Code:
 
-(setq
- python-shell-interpreter "ipython" ;; available in path
- python-shell-interpreter-args ""
- python-shell-prompt-regexp "In \\[[0-9]+\\]: "
- python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
- python-shell-completion-setup-code
- "from IPython.core.completerlib import module_completion"
- python-shell-completion-module-string-code
- "';'.join(module_completion('''%s'''))\n"
- python-shell-completion-string-code
- "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+(use-package elpy
+  :pin melpa-stable
+  :ensure t)
 
+(setq python-shell-interpreter "ipython3"
+      python-shell-interpreter-args "--simple-prompt -i")
+
+(elpy-enable)
+
+;; Local Variables:
+;; coding: utf-8
+;; no-byte-compile: t
+;; End:
 (provide 'init-local-python)
