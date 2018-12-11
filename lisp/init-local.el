@@ -22,6 +22,13 @@
              '("use-package" . "melpa-stable"))
 
 
+;; Bootstrap `use-package' (package.el pre-initialised: init-elpa.el)
+;; see also: https://github.com/jwiegley/use-package/issues/219
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
 (eval-when-compile 
   ;; (add-to-list 'load-path "<path where use-package is installed>")
   (require 'use-package)) ;; https://github.com/jwiegley/use-package
