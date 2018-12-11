@@ -19,18 +19,46 @@
 	     (cons "melpa-stable" "http://stable.melpa.org/packages/") t)
 
 (add-to-list 'package-pinned-packages
-             '("ensime" . "melpa-stable"))
+             '("use-package" . "melpa-stable"))
 
-;;(require-package 'ess)
-(require-package 'ensime)
+(eval-when-compile 
+  ;; (add-to-list 'load-path "<path where use-package is installed>")
+  (require 'use-package)) ;; https://github.com/jwiegley/use-package
+
+(use-package poly-markdown
+  :pin melpa-stable
+  :ensure t)
+
+(use-package poly-org
+  :pin melpa-stable
+  :ensure t)
+
+(use-package poly-noweb
+  :pin melpa-stable
+  :ensure t)
+
+(use-package poly-R
+  :pin melpa-stable
+  :ensure t)
+
+(use-package ess
+  :pin melpa-stable
+  :ensure t
+  :init (require 'ess-site))
+
+(require 'init-local-ess)
+
+(use-package ensime
+  :pin melpa-stable
+  :ensure t)
+
+;; (require 'init-local-ensime)
 
 ;;(require-package 'jabber)
 ;;(require-package 'julia-mode)
 
-(require 'init-local-ess)
-;; (require 'init-local-ensime)
 (require 'init-local-misc)
-(require 'init-local-python)
+;;(require 'init-local-python)
 (require 'init-local-org)
 
 ;; Local Variables:
