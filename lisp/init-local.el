@@ -15,7 +15,8 @@
 ;;;
 ;;; Code:
 
-(global-linum-mode t)              ;; enable line numbers globally
+(global-linum-mode t)               ;; enable line numbers globally
+;; (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
 (require 'init-local-packages)
 (require 'init-local-polymode)

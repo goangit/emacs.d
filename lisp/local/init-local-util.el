@@ -1,3 +1,11 @@
+;;; Package --- Summary
+;;;
+;;;
+;;; Commentary:
+;;;
+;;;
+;;; Code:
+
 (defun gl/compare-extension-strings (s1 s2)
   "Alphabetic substring comparison with boolean return required by sort"
   (let ((tst (compare-strings (downcase s1) (string-match "[a-zA-Z]" s1) nil
