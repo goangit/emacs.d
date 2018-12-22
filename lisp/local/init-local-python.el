@@ -66,9 +66,10 @@
 
 (defun reset-pythonpath (pythonpath)
   "Backup PYTHONPATH, replace with VIRTUALENV appropriate alternative."
+  (setq pythonpath-backup pythonpath)
   (let ((virtualenv (getenv "VIRTUAL_ENV")))
     (when virtualenv
-      (add-hook 'kill-emacs-hook (lambda () (setenv "PYTHONPATH" pythonpath)))
+      (add-hook 'kill-emacs-hook (lambda () (setenv "PYTHONPATH" pythonpath-backup)))
       (setenv "PYTHONPATH"
               (mapconcat 'identity
                          (discover-virtualenv-package-paths virtualenv) ":"))))
